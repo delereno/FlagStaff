@@ -3,7 +3,7 @@ import java.util.*;
 import java.io.*;
 import java.awt.Color;
 /**
- * Creates a FlagStaff object
+ * Driver class that creates a FlagStaff object
  * raises and lowers a flag on a pole.
  *
  * @author Del Huang
@@ -11,18 +11,24 @@ import java.awt.Color;
  */
 public class FlagStaff
 {
-    // instance variables - replace the example below with your own
-    public int moveAmt = 10;
-    final public String flagName = "";
+    // instance variables
+    
+    /**Creates Flag object*/
     public  Flag flag = new Flag();
+    
+    // Slider min-max values
+    static final double MOVEMIN = 0.0;
+    static final double MOVEMAX = 400.0;
+    
+    // name String coordinates
+    static final double STRINGX = 10.0;
+    static final double STRINGY = 200.0;
     /**
      * Constructor for objects of class FlagStaff
      */
     public FlagStaff()
     {
-        final double MOVEMIN = 0.0;
-        final double MOVEMAX = 400.0;
-        final double MOVEINT = 1.0;
+        // creates UI button, slider and text field inputs
         UI.initialise();
         UI.addButton("Clear", flag::clearFlag);
         UI.addButton("FlagStaff", flag::drawFlag);
@@ -32,23 +38,21 @@ public class FlagStaff
         UI.addTextField("Country", this::printName);
         UI.addButton("Quit", UI::quit);  
     }
-    public static void main (String[] args){
-        FlagStaff FlagStaff = new FlagStaff();
+    
+    /**
+     * Main routine
+     * @param args all command line arguments given by the user
+     */
+    public static void main (String[] args) {
+        // creates new FlagStaff object
+        FlagStaff flagStaff = new FlagStaff();
     }
     
-    
+    /**
+     * Draws the user flag name input
+     * @param flagName String input from text field
+     */
     public void printName(String flagName) {
-        UI.drawString(flagName,10.0,200.0);
+        UI.drawString(flagName, STRINGX, STRINGY);
     }
-    public void raiseFlag() {
-        //takes movement amount
-        //calls flag raise method
-        flag.raiseFlag();
-    }
-    
-    public void lowerFlag() {
-        //takes movement amount
-        //calls flag lower method
-    }
-    
 }
