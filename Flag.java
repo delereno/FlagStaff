@@ -1,33 +1,43 @@
-
+import ecs100.*;
+import java.util.*;
+import java.io.*;
+import java.awt.Color;
 /**
- * Write a description of class Flag here.
- *
- * @author (your name)
- * @version (a version number or a date)
+ * Flag support class
+ * Checks flag height limits 
+ * Lowers, raises and draws flag
+ * @author Del Huang
+ * @version 16/05/21
  */
 public class Flag
 {
-    // instance variables - replace the example below with your own
-    private int x;
+    final double DEFAULTX = 300.0; 
+    final double DEFAULTY = 100.0; 
 
     /**
      * Constructor for objects of class Flag
      */
     public Flag()
     {
-        // initialise instance variables
-        x = 0;
+        
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    public void drawFlag() {
+        UI.clearGraphics(); //clears onscreen graphics
+        
+        //asks for flag width, calculates other measurements
+        double width = 200;
+        double height = width * 2.0 / 3.0;
+        double ovalPosX = DEFAULTX + width * 3.0 / 10.0;
+        double ovalPosY = DEFAULTY + height / 5;
+        double ovalDiam = height * 3 / 5;
+        
+        //draws flag
+        UI.setColor(Color.black); //flag outline
+        UI.drawRect(DEFAULTX, DEFAULTY, width, height);
+        
+        UI.setColor(Color.red);
+        UI.fillOval(ovalPosX, ovalPosY, ovalDiam, ovalDiam);
     }
 }
+
