@@ -11,9 +11,21 @@ import java.awt.Color;
  */
 public class Flag
 {
+    // instance variables (flag measurements)
+    double moveAmt = 10;
+    
+    //flag coordinates
+    double y = 100.0;
     final double DEFAULTX = 300.0; 
-    final double DEFAULTY = 100.0; 
-
+    final double WIDTH = 200;
+    final double HEIGHT = WIDTH * 2.0 / 3.0;
+    final double OVALPOSX = DEFAULTX + WIDTH * 3.0 / 10.0;
+    final double OVALDIAM = HEIGHT * 3 / 5;
+    
+    //pole coordinates
+    final double POLEX = 300;
+    final double POLETOP = 50;
+    final double POLEBOT = 750;
     /**
      * Constructor for objects of class Flag
      */
@@ -21,23 +33,44 @@ public class Flag
     {
         
     }
-
+    
+    public void setMoveAmt(double amt) {
+        moveAmt = amt;
+    }
+    public void clearFlag() {
+        y = 100.0;
+        UI.clearGraphics();
+    }
+    public void raiseFlag() {
+        //If raised flag fits pole limit, changes y coordinate
+        if ((y - moveAmt) >= POLETOP){
+            y -= moveAmt;
+            drawFlag();
+        }
+    }
+    
+    public void lowerFlag() {
+        //If lowered flag fits pole limit, changes y coordinate
+        if ((y + moveAmt + HEIGHT) <= POLEBOT){
+            y += moveAmt;
+            drawFlag();
+        }
+    }
+   
     public void drawFlag() {
+        //changes red circle height
+        double ovalPosY = y + HEIGHT / 5;
+        
         UI.clearGraphics(); //clears onscreen graphics
         
-        //asks for flag width, calculates other measurements
-        double width = 200;
-        double height = width * 2.0 / 3.0;
-        double ovalPosX = DEFAULTX + width * 3.0 / 10.0;
-        double ovalPosY = DEFAULTY + height / 5;
-        double ovalDiam = height * 3 / 5;
+        //draws pole
+        UI.setColor(Color.black);
+        UI.drawLine(POLEX,POLETOP,POLEX,POLEBOT);
         
         //draws flag
-        UI.setColor(Color.black); //flag outline
-        UI.drawRect(DEFAULTX, DEFAULTY, width, height);
-        
+        UI.drawRect(DEFAULTX, y, WIDTH, HEIGHT);
         UI.setColor(Color.red);
-        UI.fillOval(ovalPosX, ovalPosY, ovalDiam, ovalDiam);
+        UI.fillOval(OVALPOSX, ovalPosY, OVALDIAM, OVALDIAM);
     }
 }
 

@@ -12,40 +12,38 @@ import java.awt.Color;
 public class FlagStaff
 {
     // instance variables - replace the example below with your own
-    private int x;
-
+    public int moveAmt = 10;
+    final public String flagName = "";
+    public  Flag flag = new Flag();
     /**
      * Constructor for objects of class FlagStaff
      */
     public FlagStaff()
     {
+        final double MOVEMIN = 0.0;
+        final double MOVEMAX = 400.0;
+        final double MOVEINT = 1.0;
         UI.initialise();
-        UI.addButton("Clear", this::clearFlag);
-        UI.addButton("FlagStaff", this::doFlagStaff);
-        UI.addButton("Raise", this::raiseFlag);
-        UI.addButton("Lower", this::lowerFlag);
-        // slider placeholder (flage movement amnt)
-        // text field (country name)
+        UI.addButton("Clear", flag::clearFlag);
+        UI.addButton("FlagStaff", flag::drawFlag);
+        UI.addButton("Raise", flag::raiseFlag);
+        UI.addButton("Lower", flag::lowerFlag);
+        UI.addSlider("Movement",MOVEMIN,MOVEMAX, flag::setMoveAmt);
+        UI.addTextField("Country", this::printName);
         UI.addButton("Quit", UI::quit);  
     }
     public static void main (String[] args){
-        UI.print("halo");
         FlagStaff FlagStaff = new FlagStaff();
     }
-    public void clearFlag() {
-        //clears screen
-        //resets flag position
-    }
     
-    public void doFlagStaff() {
-        Flag flag = new Flag();
-        flag.drawFlag();
-        //draws flag
-    }
     
+    public void printName(String flagName) {
+        UI.drawString(flagName,10.0,200.0);
+    }
     public void raiseFlag() {
         //takes movement amount
         //calls flag raise method
+        flag.raiseFlag();
     }
     
     public void lowerFlag() {
